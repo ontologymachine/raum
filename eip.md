@@ -50,7 +50,7 @@ contract Implementation implements ERC20 {
   }
 }
 ```
-===========================
+
 // SmartWallet (SmartAgent?)
 - method for querying what functionality the wallet has...
 
@@ -60,7 +60,7 @@ public queryInterface(uint256 hBytecode) returns(address) {
   // if it exists, return address of implementing contract
 }
 ```
-===========================
+
 // some DAO, new agent wants to join...
 // upon agent asking to join, the DAO will make sure the agent's wallet satisfies its requirements, for example:
 - attestation service for rep
