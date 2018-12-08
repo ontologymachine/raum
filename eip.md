@@ -68,5 +68,15 @@ public queryInterface(uint256 hBytecode) returns(address) {
 
 // The DAO would be responsible for managing which fields are required to be published to the json blob on IPFS. Differnet implementations could 
 
+Ideally, there will be three methods for this interface contract interacting with the data. This would be the responsibility of the 
+implementers to do the following:
+- verification (ensure that the schema inside the json is valid for the contract interface)
+- write a new field / add a new entity to the context
+- Update an existing field with new data
+
+## Real-world Example
+TODO
+
+
 ## Copyright
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
