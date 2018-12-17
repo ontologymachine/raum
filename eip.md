@@ -28,12 +28,42 @@ Building a psuedo-anonymous reputation system where users can own the data they 
 The ability to share metadata transparently also makes the feature set of dapps richer across the whole ecosystem. This "smart" wallet inteface facilitates these goals by giving developers tools
 to publish data related to a particular address for record keeping purposes.
 
+Extending these ideas into the semantic web allows us to run complex queries across our blockchain data and create more interactive transparent experiences. This is critical in organizations
+like DAOs which need to treat contract logic like law. And thus, a human-readable metadata structure will help both intelligent agents and humans make sense of the possible narratives playing out
+in its ecosystem. Below you will find a specification that is derived from an example ontology for the [DAOstack contracts](https://github.com/daostack/infra).
+
+We intend to show through this example a potential path to an interoperability between DAOs by defining a semantic interface that can be formally verifiable using the K Framework. This will take
+significant time to complete. In the meantime, we can provide a compact spec that provides basic capabilities for any organization to create their own ontologies they can share with other
+smart contracts and DAOs.
+
 ## Specification
 Inspired by:
+https://solidity.readthedocs.io/en/v0.4.25/metadata.html?highlight=swarm
 https://github.com/MetaMask/eth-contract-metadata
 https://github.com/eth-registry/EIPs/blob/EIP-1357-Address-Metadata/EIPS/eip-1456.md
+https://github.com/ethereum/EIPs/issues/820
 
-===========================
+We use an example the DAOstack Avatar to illustrate these semantics [definitions](https://github.com/daostack/subgraph/blob/master/src/mappings/Avatar/schema.graphql).
+
+```JSON-LD
+{
+  // the protocol is more or less arbitrary, but a
+  // Swarm URL is recommended to the JSON schema
+  "@context": "bzzr://56ab...",
+  "@type": "DAOStackAvatar",
+  "name": "Jane Doe",
+  "address": " 0xB563300A3BAc79FC09B93b6F84CE0d4465A2AC27"
+	"nativeToken": "GEN"
+	"nativeReputation": "REP"
+}
+```
+This JSON file would be constructed through the formal semantics of the set of contracts that implement this @entity which schema is stored on IPFS Swarm. As such, the contract is responsible for
+its correctness and implementation details.
+
+Here we will need an `ERC820Registry` that contains the mappings of address that can implement the interfaces for each of the entities described with the JSON metadata. This is a crucial step
+in ensuring that the schemas are valid and not comprimised by a bad actor. Also, it can be used as a trust system in the future for other Dapps that want to see the semantic data of the memebers
+inside of an organization.
+
 ```solidity
 // ERC 20
 interface ERC20 {
@@ -49,17 +79,13 @@ contract Implementation implements ERC20 {
     // stuff
   }
 }
+
+Swarm hash of the file that we can use to verify a correct implementation of a registered contract.
+0xa1 0x65 'b' 'z' 'z' 'r' '0' 0x58 0x20 <32 bytes swarm hash> 0x00 0x29
+
 ```
 
-// SmartWallet (SmartAgent?)
-- method for querying what functionality the wallet has...
-
-```solidity
-public queryInterface(uint256 hBytecode) returns(address) {
-  // lookup hBytecode in functionality mapping...
-  // if it exists, return address of implementing contract
-}
-```
+To further explore the potentials of the semantic web and smart contracts:
 
 // some DAO, new agent wants to join...
 // upon agent asking to join, the DAO will make sure the agent's wallet satisfies its requirements, for example:
